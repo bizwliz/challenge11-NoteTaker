@@ -10,8 +10,13 @@ const app = express();
 // Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//middleware to modular api routes
+// http://localhost:3001/api
+// api base, first piece
 app.use('/api', api);
 
+// middleware to make public the homepage url http://localhost:3001
 app.use(express.static('public'));
 
 // GET Route for homepage
@@ -20,13 +25,13 @@ app.get('/', (req, res) =>
 );
 
 // GET Route for feedback page
-app.get('/feedback', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/pages/feedback.html'))
+app.get('/notes', (req, res) =>
+  res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
 // Wildcard route to direct users to a 404 page
 app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, 'public/pages/404.html'))
+  res.sendFile(path.join(__dirname, 'public/index.html'))
 );
 
 app.listen(PORT, () =>
