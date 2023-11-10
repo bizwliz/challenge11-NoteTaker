@@ -43,21 +43,21 @@ notes.delete('/:tip_id', (req, res) => {
 });
 
 // POST Route for a new UX/UI tip
+
 notes.post('/', (req, res) => {
   console.log(req.body);
 
-  const { username, topic, tip } = req.body;
+  const { title,text } = req.body;
 
   if (req.body) {
-    const newTip = {
-      username,
-      tip,
-      topic,
-      tip_id: uuidv4(),
+    const newNote = {
+      title,
+      text,
+      id: uuidv4(),
     };
 
-    readAndAppend(newTip, './db/notes.json');
-    res.json(`Tip added successfully`);
+    const parsedData=readAndAppend(newNote, './db/db.json');
+    res.json(parsedData);
   } else {
     res.error('Error in adding tip');
   }
